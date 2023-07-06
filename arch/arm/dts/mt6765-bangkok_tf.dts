@@ -1,0 +1,12 @@
+#include mt6765.dtsi
+/ {
+	model = "Bangkok_TF board based on mt6765";
+	compatible = "mediatek,bangkok_tf", "mediatek,mt6765";
+
+	aliases {
+		serial1 = "/serial@11020000";
+        serial2 = "/serial@11030000";
+		console = "/serial@11030000";
+		pinctrl0 = "/pinctrl@1000b000";
+	};
+};

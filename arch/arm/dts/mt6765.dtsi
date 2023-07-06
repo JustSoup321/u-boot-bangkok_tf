@@ -1,18 +1,16 @@
 // SPDX-License-Identifier: GPL-2.0+
-/*
- * Copyright (c) 2019 MediaTek Inc.
- *
- */
 
-#include <dt-bindings/interrupt-controller/arm-gic.h>
-#include <dt-bindings/interrupt-controller/irq.h>
-#include <dt-bindings/pinctrl/mt6765-pinfunc.h>
-#include <dt-bindings/mmc/mt6765-msdc.h>
+/dts-v1/;
+#include "skeleton.dtsi"
+//#include <dt-bindings/interrupt-controller/arm-gic.h>
+//#include <dt-bindings/interrupt-controller/irq.h>
+//#include <dt-bindings/pinctrl/mt6765-pinfunc.h>
+//#include <dt-bindings/mmc/mt6765-msdc.h>
 #include <dt-bindings/clock/mt6765-clk.h>
-#include <dt-bindings/iio/mt635x-auxadc.h>
-#include <dt-bindings/gce/mt6765-gce.h>
-#include <generated/autoconf.h>
-#include <dt-bindings/soc/mediatek,boot-mode.h>
+//#include <dt-bindings/iio/mt635x-auxadc.h>
+//#include <dt-bindings/gce/mt6765-gce.h>
+//#include <generated/autoconf.h>
+//#include <dt-bindings/soc/mediatek,boot-mode.h>
 
 / {
 	compatible = "mediatek,mt6762";
@@ -300,3 +298,6 @@
 			"usb0_clk_univpll3_d4";
 		charger = <&mt6370_chg>;
 	};
+
+	}
+}
