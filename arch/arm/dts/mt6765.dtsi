@@ -1,0 +1,302 @@
+// SPDX-License-Identifier: GPL-2.0+
+/*
+ * Copyright (c) 2019 MediaTek Inc.
+ *
+ */
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/pinctrl/mt6765-pinfunc.h>
+#include <dt-bindings/mmc/mt6765-msdc.h>
+#include <dt-bindings/clock/mt6765-clk.h>
+#include <dt-bindings/iio/mt635x-auxadc.h>
+#include <dt-bindings/gce/mt6765-gce.h>
+#include <generated/autoconf.h>
+#include <dt-bindings/soc/mediatek,boot-mode.h>
+
+/ {
+	compatible = "mediatek,mt6762";
+	interrupt-parent = <&sysirq>;
+	#address-cells = <2>;
+	#size-cells = <2>;
+	
+	config {
+		u-boot,mmc-env-partition = "u-boot-env";
+	};
+	
+	cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		cpu0: cpu@000 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53";
+			reg = <0x000>;
+			enable-method = "psci";
+			clock-frequency = <2301000000>;
+			operating-points-v2 = <&cluster0_opp>;
+			dynamic-power-coefficient = <275>;
+			capacity-dmips-mhz = <1024>;
+			cpu-idle-states = <&STANDBY &MCDI_CPU &MCDI_CLUSTER>,
+				<&SODI &SODI3 &DPIDLE &SUSPEND>;
+		};
+
+		cpu1: cpu@001 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53";
+			reg = <0x001>;
+			enable-method = "psci";
+			clock-frequency = <2301000000>;
+			operating-points-v2 = <&cluster0_opp>;
+			dynamic-power-coefficient = <275>;
+			capacity-dmips-mhz = <1024>;
+			cpu-idle-states = <&STANDBY &MCDI_CPU &MCDI_CLUSTER>,
+				<&SODI &SODI3 &DPIDLE &SUSPEND>;
+		};
+
+		cpu2: cpu@002 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53";
+			reg = <0x002>;
+			enable-method = "psci";
+			clock-frequency = <2301000000>;
+			operating-points-v2 = <&cluster0_opp>;
+			dynamic-power-coefficient = <275>;
+			capacity-dmips-mhz = <1024>;
+			cpu-idle-states = <&STANDBY &MCDI_CPU &MCDI_CLUSTER>,
+				<&SODI &SODI3 &DPIDLE &SUSPEND>;
+		};
+
+		cpu3: cpu@003 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53";
+			reg = <0x003>;
+			enable-method = "psci";
+			clock-frequency = <2301000000>;
+			operating-points-v2 = <&cluster0_opp>;
+			dynamic-power-coefficient = <275>;
+			capacity-dmips-mhz = <1024>;
+			cpu-idle-states = <&STANDBY &MCDI_CPU &MCDI_CLUSTER>,
+				<&SODI &SODI3 &DPIDLE &SUSPEND>;
+		};
+
+		cpu4: cpu@100 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53";
+			reg = <0x100>;
+			enable-method = "psci";
+			clock-frequency = <1800000000>;
+			operating-points-v2 = <&cluster1_opp>;
+			dynamic-power-coefficient = <85>;
+			capacity-dmips-mhz = <801>;
+			cpu-idle-states = <&STANDBY &MCDI_CPU &MCDI_CLUSTER>,
+				<&SODI &SODI3 &DPIDLE &SUSPEND>;
+		};
+
+		cpu5: cpu@101 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53";
+			reg = <0x101>;
+			enable-method = "psci";
+			clock-frequency = <1800000000>;
+			operating-points-v2 = <&cluster1_opp>;
+			dynamic-power-coefficient = <85>;
+			capacity-dmips-mhz = <801>;
+			cpu-idle-states = <&STANDBY &MCDI_CPU &MCDI_CLUSTER>,
+				<&SODI &SODI3 &DPIDLE &SUSPEND>;
+		};
+
+		cpu6: cpu@102 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53";
+			reg = <0x102>;
+			enable-method = "psci";
+			clock-frequency = <1800000000>;
+			operating-points-v2 = <&cluster1_opp>;
+			dynamic-power-coefficient = <85>;
+			capacity-dmips-mhz = <801>;
+			cpu-idle-states = <&STANDBY &MCDI_CPU &MCDI_CLUSTER>,
+				<&SODI &SODI3 &DPIDLE &SUSPEND>;
+		};
+
+		cpu7: cpu@103 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53";
+			reg = <0x103>;
+			enable-method = "psci";
+			clock-frequency = <1800000000>;
+			operating-points-v2 = <&cluster1_opp>;
+			dynamic-power-coefficient = <85>;
+			capacity-dmips-mhz = <801>;
+			cpu-idle-states = <&STANDBY &MCDI_CPU &MCDI_CLUSTER>,
+				<&SODI &SODI3 &DPIDLE &SUSPEND>;
+		};
+		
+	clocks {
+		clk26m: clk26m {
+			compatible = "fixed-clock";
+			#clock-cells = <0>;
+			clock-frequency = <26000000>;
+		};
+
+		clk13m: clk13m {
+			compatible = "fixed-clock";
+			#clock-cells = <0>;
+			clock-frequency = <13000000>;
+		};
+
+		clk32k: clk32k {
+			compatible = "fixed-clock";
+			#clock-cells = <0>;
+			clock-frequency = <32000>;
+		};
+	};
+		
+	timer {
+		compatible = "arm,armv8-timer";
+		interrupt-parent = <&gic>;
+		clock-frequency = <13000000>;
+		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
+			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
+			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
+			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
+	};
+	
+	timer: timer@10017000 {
+		compatible ="mediatek,mt6765-timer";
+		reg = <0 0x10017000 0 0x1000>;
+		interrupts = <GIC_SPI 194 IRQ_TYPE_LEVEL_HIGH>;
+		clocks = <&clk13m>;
+		reg-names = "sys_timer_base";
+	};
+	
+	gic: interrupt-controller@0c000000 {
+		compatible = "arm,gic-v3";
+		#interrupt-cells = <3>;
+		#address-cells = <2>;
+		#size-cells = <2>;
+		#redistributor-regions = <1>;
+		interrupt-parent = <&gic>;
+		interrupt-controller;
+		reg = <0 0x0c000000 0 0x40000>, // distributor
+		      <0 0x0c100000 0 0x200000>, // redistributor
+		      <0 0x10200a80 0 0x50>; // intpol
+		interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
+	};
+	
+	apmixed: apmixed@1000c000 {
+		compatible = "mediatek,mt6765-apmixedsys";
+		reg = <0 0x1000c000 0 0xe00>;
+		#clock-cells = <1>;
+	};
+	
+	topckgen: topckgen@10000000 {
+		compatible = "mediatek,mt6765-topckgen";
+		reg = <0 0x10000000 0 0x1000>;
+		#clock-cells = <1>;
+	};
+	
+	infracfg_ao: infracfg_ao@10001000 {
+		compatible = "mediatek,mt6765-infracfg";
+		reg = <0 0x10001000 0 0x1000>;
+		interrupts = <GIC_SPI 147 IRQ_TYPE_EDGE_RISING>;
+		#clock-cells = <1>;
+	};
+	
+	infracfg: infracfg@1020e000 {
+		compatible = "mediatek,mt6765-infracfg";
+		reg = <0 0x1020e000 0 0x1000>;
+		clock-parent = <&topckgen>;
+		#clock-cells = <1>;
+	};
+	
+	pinctrl: pinctrl@1000b000 {
+		compatible = "mediatek,mt6765-pinctrl";
+		reg_bases = <&gpio>,
+			<&io_cfg_lt>,
+			<&io_cfg_lm>,
+			<&io_cfg_lb>,
+			<&io_cfg_bl>,
+			<&io_cfg_rr>,
+			<&io_cfg_rb>,
+			<&io_cfg_rt>;
+		pins-are-numbered;
+		gpio-controller;
+		gpio-ranges = <&pio 0 0 179>;
+		#gpio-cells = <2>;
+	};
+	
+	pwm: pwm@11006000 {
+		compatible = "mediatek,pwm";
+		reg = <0 0x11006000 0 0x10000>;
+		interrupts = <GIC_SPI 77 IRQ_TYPE_LEVEL_LOW>;
+		clocks = <&infracfg_ao CLK_IFR_PWM1>,
+				<&infracfg_ao CLK_IFR_PWM2>,
+				<&infracfg_ao CLK_IFR_PWM3>,
+				<&infracfg_ao CLK_IFR_PWM4>,
+				<&infracfg_ao CLK_IFR_PWM5>,
+				<&infracfg_ao CLK_IFR_RG_PWM_FBCLK6>,
+				<&infracfg_ao CLK_IFR_PWM_HCLK>,
+		pwm		<&infracfg_ao CLK_IFR_PWM>;
+		clock-names = "PWM1-main", "PWM2-main",
+				"PWM3-main", "PWM4-main",
+				"PWM5-main", "PWM6-main",
+				"PWM-HCLK-main", "PWM-main";
+	};
+	
+	uart0: serial@11020000 {
+		compatible = "mediatek,hsuart";
+		reg = <0 0x11002000 0 0x1000>;
+		interrupts = <GIC_SPI 91 IRQ_TYPE_LEVEL_LOW>;
+		clocks = <&clk26m>, <&infracfg_ao CLK_IFR_UART0>;
+		clock-names = "baud", "bus";
+		dmas = <&apdma 0
+			&apdma 1>;
+		dma-names = "tx", "rx";
+	};
+	
+	uart1: serial@11030000 {
+		compatible = "mediatek,hsuart"
+		reg = <0 0x11003000 0 0x1000>;
+		interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_LOW>;
+		clocks = <&clk26m>, <&infracfg_ao CLK_IFR_UART1>;
+		clock-names = "baud", "bus";
+	};
+	
+	spi0: spi@1100a000 {
+		compatible = "mediatek,mt6765-spi";
+		mediatek,pad-select = <0>;
+		reg = <0 0x1100a000 0 0x1000>;
+		interrupts = <GIC_SPI 118 IRQ_TYPE_LEVEL_LOW>;
+		clocks = <&topckgen CLK_TOP_SYSPLL3_D2>,
+				<&topckgen CLK_TOP_SPI_SEL>,
+				<&infracfg_ao CLK_IFR_SPI0>;
+		clock-names = "parent-clk", "sel-clk", "spi-clk";
+	};
+	
+	spi1: spi@11010000 {
+		compatible = "mediatek,mt6765-spi";
+		mediatek,pad-select = <0>;
+		reg = <0 0x11010000 0 0x1000>;
+		interrupts = <GIC_SPI 122 IRQ_TYPE_LEVEL_LOW>;
+		clocks = <&topckgen CLK_TOP_SYSPLL3_D2>,
+				<&topckgen CLK_TOP_SPI_SEL>,
+				<&infracfg_ao CLK_IFR_SPI1>;
+		clock-names = "parent-clk", "sel-clk", "spi-clk";
+	};
+	
+	usb: usb0@11200000 {
+		compatible = "mediatek,mt6765-usb20";
+		reg = <0 0x11200000 0 0x10000>,
+		      <0 0x11CC0000 0 0x10000>;
+		interrupts = <GIC_SPI 73 IRQ_TYPE_LEVEL_LOW>;
+		mode = <2>;
+		multipoint = <1>;
+		num_eps = <16>;
+		clocks = <&infracfg_ao CLK_IFR_ICUSB>,
+			<&topckgen CLK_TOP_USB_TOP_SEL>,
+			<&topckgen CLK_TOP_UNIVPLL3_D4>;
+		clock-names = "usb0",
+			"usb0_clk_top_sel",
+			"usb0_clk_univpll3_d4";
+		charger = <&mt6370_chg>;
+	};
