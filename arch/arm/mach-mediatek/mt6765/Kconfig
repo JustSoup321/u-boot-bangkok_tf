@@ -1,0 +1,7 @@
+choice
+...
+config TARGET_MT6765
+bool "mt6765"
+select MT6765
+...
+endchoice

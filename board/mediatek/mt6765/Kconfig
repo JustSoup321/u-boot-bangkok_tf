@@ -1,7 +1,7 @@
 if TARGET_MT6765
 
 config SYS_BOARD
-    default "bangkok_tf"
+    default "mt6765"
     help
       Bangkok_TF, otherwise known as TCL A3 is a phone manufactured by
       TCL Technology for the North American market. It includes
@@ -11,6 +11,6 @@ config SYS_VENDOR
     default "TCL"
 
 config SYS_CONFIG_NAME
-    default "bangkok_tf"
+    default "mt6765"
 
 endif
