@@ -1,0 +1,5 @@
+BANGKOK_TF Board
+M:	Brandon Boese <brandonboese@protonmail.com>
+S:	Maintained
+F:	board/mediatek/mt6765/
+F:	include/configs/mt6765.h

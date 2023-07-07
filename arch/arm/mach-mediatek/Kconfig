@@ -12,6 +12,15 @@ config MT8512
 choice
 	prompt "MediaTek board select"
 
+config TARGET_MT6765
+	bool "Mediatek MT6765 SoC"
+	select ARM64
+	help
+	  The Mediatek MT6765 is a ARM64-based SoC with a octa-core Cortex-A53
+	  including GPU, IMG PowerVR GE8320 graphics, DDR3 and DDR4 options,
+	  video codec support, flash, built-in Wi-Fi / Bluetooth combo chip,
+	  VoLTE support, and various cellular connections up to 4G.
+
 config TARGET_MT7622
 	bool "MediaTek MT7622 SoC"
 	select ARM64
@@ -99,6 +108,7 @@ endchoice
 
 config SYS_BOARD
 	string "Board name"
+	default "mt6765" if TARGET_MT6765
 	default "mt7622" if TARGET_MT7622
 	default "mt7623" if TARGET_MT7623
 	default "mt7629" if TARGET_MT7629
@@ -116,6 +126,7 @@ config SYS_BOARD
 
 config SYS_CONFIG_NAME
 	string "Board configuration name"
+	default "mt6765" if TARGET_MT6765
 	default "mt7622" if TARGET_MT7622
 	default "mt7623" if TARGET_MT7623
 	default "mt7629" if TARGET_MT7629
@@ -134,7 +145,7 @@ config SYS_CONFIG_NAME
 config MTK_BROM_HEADER_INFO
 	string
 	default "media=nor" if TARGET_MT8518 || TARGET_MT8512 || TARGET_MT7629 || TARGET_MT7622
-	default "media=emmc" if TARGET_MT8516 || TARGET_MT8365 || TARGET_MT8183
+	default "media=emmc" if TARGET_MT6765 || TARGET_MT8516 || TARGET_MT8365 || TARGET_MT8183
 	default "media=snand;nandinfo=2k+64" if TARGET_MT7981 || TARGET_MT7986
 	default "lk=1" if TARGET_MT7623
 

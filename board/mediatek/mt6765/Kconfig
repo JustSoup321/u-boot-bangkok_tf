@@ -1,0 +1,16 @@
+if TARGET_MT6765
+
+config SYS_BOARD
+    default "bangkok_tf"
+    help
+      Bangkok_TF, otherwise known as TCL A3 is a phone manufactured by
+      TCL Technology for the North American market. It includes
+      various interconnects, such as Micro-USB and 3.5mm TRS connector.
+    
+config SYS_VENDOR
+    default "TCL"
+
+config SYS_CONFIG_NAME
+    default "bangkok_tf"
+
+endif
